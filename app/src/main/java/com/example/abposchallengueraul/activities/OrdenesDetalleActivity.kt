@@ -3,6 +3,7 @@ package com.example.abposchallengueraul.activities
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
 import android.widget.TextView
 import com.example.abposchallengueraul.R
 
@@ -14,6 +15,7 @@ class OrdenesDetalleActivity : AppCompatActivity() {
     private lateinit var ticketnumber_tv: TextView
     private lateinit var orderDateTime_tv: TextView
     private lateinit var orderType_tv: TextView
+
 
 
     lateinit var sharedPreferences: SharedPreferences
@@ -29,6 +31,9 @@ class OrdenesDetalleActivity : AppCompatActivity() {
         ticketnumber_tv=findViewById(R.id.ticketTV)
         orderDateTime_tv=findViewById(R.id.orderTimeTV)
         orderType_tv=findViewById(R.id.orderTypeTV)
+
+
+
 
 
 
