@@ -25,8 +25,9 @@ class OrdenesActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ordenes)
-
         binding= ActivityOrdenesBinding.inflate(layoutInflater)
+
+
         setContentView(binding.root)
 
         viewModel=ViewModelProvider(this,MyViewModelFactory(MainRepository(retrofitService))).get(MainViewModel::class.java)
@@ -34,11 +35,13 @@ class OrdenesActivity : AppCompatActivity() {
         binding.recyclerview.adapter = adapter
 
         viewModel.ordenesList.observe(this, Observer {
-            Log.d(TAG, "onCreate: $it")
+            Log.d(TAG, "ordersList: $it")
             adapter.setOrdenesList(it)
         })
 
-        viewModel.errorMessage.observe(this, Observer {  })
+        viewModel.errorMessage.observe(this, Observer {
+            Log.d(TAG, "errorMessage: $it")
+        })
         viewModel.getAllOrdenes()
 
 

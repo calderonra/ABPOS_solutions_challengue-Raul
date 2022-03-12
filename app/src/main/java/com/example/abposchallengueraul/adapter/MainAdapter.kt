@@ -23,11 +23,10 @@ var ordenes= mutableListOf<Orden>()
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
         val orden=ordenes[position]
-        holder.binding.orderTV.text=orden.id.toString()
+        holder.binding.orderTV.text=orden.orderId.toString()
         holder.binding.ticketTV.text=orden.ticketNumber.toString()
         holder.binding.PickUpTV.text=orden.orderType.toString()
         holder.binding.orderTimeTV.text=orden.orderDateTime
-
     }
 
     override fun getItemCount(): Int {

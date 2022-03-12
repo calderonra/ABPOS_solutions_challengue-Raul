@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 
 
 data class Orden(
-    var id: Int,
+    var orderId: Int,
     var username: String,
     var subtotal: Double,
     var ticketNumber: Int,

@@ -16,7 +16,7 @@ interface RetrofitService {
         fun getInstance() : RetrofitService {
             if (retrofitService == null) {
                 val retrofit = Retrofit.Builder()
-                    .baseUrl("http://dev-graphql.azurewebsites.net/api/test/")
+                    .baseUrl("https://dev-graphql.azurewebsites.net/api/test/")
                     .addConverterFactory(GsonConverterFactory.create())
                     .build()
                 retrofitService = retrofit.create(RetrofitService::class.java)
