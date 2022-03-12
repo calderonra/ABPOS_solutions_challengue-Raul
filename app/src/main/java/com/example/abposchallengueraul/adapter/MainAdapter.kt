@@ -6,17 +6,21 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
 import com.example.abposchallengueraul.activities.OrdenesDetalleActivity
 import com.example.abposchallengueraul.database.entity.Orden
 import com.example.abposchallengueraul.databinding.OrdenesAdapterBinding
 
-class MainAdapter(val context: Context):RecyclerView.Adapter<MainAdapter.MainViewHolder> (){
+class MainAdapter(val context: Context):RecyclerView.Adapter<MainAdapter.MainViewHolder> (),Filterable{
 
      lateinit var sharedPreferences: SharedPreferences
 
 
     var ordenes= mutableListOf<Orden>()
+    var ordenesFiltered= mutableListOf<Orden>()
+
 
     fun setOrdenesList(ordenes:List<Orden>){
         this.ordenes=ordenes.toMutableList()
@@ -62,5 +66,34 @@ class MainAdapter(val context: Context):RecyclerView.Adapter<MainAdapter.MainVie
 
         }
 }
+
+
+    override fun getFilter(): Filter {
+        return object: Filter(){
+            override fun performFiltering(p0: CharSequence?): FilterResults {
+                val charString = p0?.toString() ?: ""
+                if (charString.isEmpty())ordenesFiltered=ordenes else{
+                    val filteredList=ArrayList<Orden>()
+                    filteredList.filter {
+
+                        (it.orderId.toString().contains(p0!!))
+
+                    }
+                        .forEach{ filteredList.add(it) }
+                    ordenesFiltered=filteredList
+                }
+                return FilterResults().apply { values=ordenesFiltered}
+            }
+
+            override fun publishResults(p0: CharSequence?, results: FilterResults?) {
+                ordenesFiltered=if (results?.values==null)
+                    ArrayList()
+                else
+                    results.values as MutableList<Orden>
+                notifyDataSetChanged()
+            }
+
+        }
+    }
 
 }

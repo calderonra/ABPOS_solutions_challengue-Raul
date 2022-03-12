@@ -3,6 +3,7 @@ package com.example.abposchallengueraul.activities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.SearchView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.abposchallengueraul.R
@@ -13,7 +14,7 @@ import com.example.abposchallengueraul.databinding.ActivityOrdenesBinding
 import com.example.abposchallengueraul.viewmodel.MainViewModel
 import com.example.abposchallengueraul.viewmodel.MyViewModelFactory
 
-class OrdenesActivity : AppCompatActivity() {
+class OrdenesActivity : AppCompatActivity() , SearchView.OnQueryTextListener{
 
     private val TAG = "OrdenesActivity"
     private lateinit var binding: ActivityOrdenesBinding
@@ -45,6 +46,16 @@ class OrdenesActivity : AppCompatActivity() {
         viewModel.getAllOrdenes()
 
 
+    }
+
+    override fun onQueryTextSubmit(p0: String?): Boolean {
+        adapter.filter.filter(p0)
+        return false
+    }
+
+    override fun onQueryTextChange(p0: String?): Boolean {
+        adapter.filter.filter(p0)
+        return false
     }
 }
 
