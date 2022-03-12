@@ -19,7 +19,7 @@ class OrdenesActivity : AppCompatActivity() {
     private lateinit var binding: ActivityOrdenesBinding
     lateinit var viewModel: MainViewModel
     private val retrofitService=RetrofitService.getInstance()
-    val adapter=MainAdapter()
+    val adapter=MainAdapter(this)
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
