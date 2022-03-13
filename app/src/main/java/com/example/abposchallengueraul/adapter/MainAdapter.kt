@@ -8,6 +8,7 @@ import android.content.SharedPreferences
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.abposchallengueraul.activities.OrdenesDetalleActivity
 import com.example.abposchallengueraul.database.entity.Orden
@@ -105,13 +106,16 @@ open class MainAdapter(val context: Context):RecyclerView.Adapter<MainAdapter.Ma
           for (item in ordenesFiltered) {
               if (item.orderId.toString().contains(text)) {
                   ordenes.add(item)
-                  Log.d(TAG, "pasty")
-
+                  Toast.makeText(context, "ENTRE AL IF PUTA ", Toast.LENGTH_SHORT).show()
               }
           }
       }
       notifyDataSetChanged()
   }
+
+    init {
+        ordenesFiltered.addAll(ordenes)
+    }
 
 
     fun DineINfilter() {
