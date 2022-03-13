@@ -7,72 +7,61 @@
     android:layout_height="match_parent"
     tools:context=".activities.OrdenesActivity"
     >
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
 
-    <SearchView
+    <androidx.appcompat.widget.SearchView
         android:id="@+id/search_view"
-        android:layout_width="390dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="5dp"
-        android:includeFontPadding="false"
         android:padding="2dp"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:iconifiedByDefault="false"
         app:queryHint="Search orders" />
-</LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="72dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:itemCount="9"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        tools:itemCount="3"
         tools:listitem="@layout/ordenes_adapter" />
-    </LinearLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/togoBtn"
-            android:layout_weight="1"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="14sp"
             android:text="To Go" />
 
         <Button
             android:id="@+id/DineInBtn"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:textSize="14sp"
             android:layout_weight="1"
             android:text="Dine in" />
 
         <Button
             android:id="@+id/PickUpBtn"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:textSize="14sp"
             android:text="Pick Up" />
         <Button
             android:id="@+id/DeliveryBtn"
-            android:layout_weight="1"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="12sp"
             android:text="Delivery" />
 
     </LinearLayout>

@@ -13,15 +13,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.abposchallengueraul.activities.OrdenesDetalleActivity
 import com.example.abposchallengueraul.database.entity.Orden
 import com.example.abposchallengueraul.databinding.OrdenesAdapterBinding
+import java.util.*
+import kotlin.collections.ArrayList
 
-open class MainAdapter(val context: Context):RecyclerView.Adapter<MainAdapter.MainViewHolder> (){
+open class MainAdapter(val context: Context, var ordenes: MutableList<Orden>):RecyclerView.Adapter<MainAdapter.MainViewHolder> (){
 
-     lateinit var sharedPreferences: SharedPreferences
-
-
-    var ordenes= mutableListOf<Orden>()
-    var ordenesFiltered= mutableListOf<Orden>()
-
+    lateinit var sharedPreferences: SharedPreferences
+    var ordenesFiltered = ArrayList<Orden>()
 
     fun setOrdenesList(ordenes:List<Orden>){
         this.ordenes=ordenes.toMutableList()
@@ -29,16 +27,16 @@ open class MainAdapter(val context: Context):RecyclerView.Adapter<MainAdapter.Ma
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
-        val inflater=LayoutInflater.from(parent.context)
-        val binding=OrdenesAdapterBinding.inflate(inflater,parent,false)
+        val itemBinding: OrdenesAdapterBinding =
+            OrdenesAdapterBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
         sharedPreferences=context.getSharedPreferences("MySP", Activity.MODE_PRIVATE)
 
-        return MainViewHolder(binding)
+        return MainViewHolder(itemBinding)
     }
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
-        holder.bin(ordenes[position])
+        holder.bind(ordenes[position])
     }
 
     override fun getItemCount(): Int {
@@ -46,7 +44,8 @@ open class MainAdapter(val context: Context):RecyclerView.Adapter<MainAdapter.Ma
     }
 
     inner class MainViewHolder(val binding: OrdenesAdapterBinding):RecyclerView.ViewHolder(binding.root){
-        fun bin(ordenes: Orden){
+        fun bind(ordenes: Orden){
+
             binding.root.setOnClickListener{
                 val editor=sharedPreferences.edit()
                 editor.putInt("orderID",ordenes.orderId)
@@ -69,53 +68,28 @@ open class MainAdapter(val context: Context):RecyclerView.Adapter<MainAdapter.Ma
 }
 
 
-  /*  override fun getFilter(): Filter {
-        return object: Filter(){
-            override fun performFiltering(p0: CharSequence?): FilterResults {
-                val charString = p0?.toString() ?: ""
-                if (charString.isEmpty())ordenesFiltered=ordenes else{
-                    val filteredList=ArrayList<Orden>()
-                    filteredList.filter {
-
-
-                        (it.orderId.toString().contains(p0!!))
-
-                    }
-                        .forEach{ filteredList.add(it) }
-                    ordenesFiltered=filteredList
-                }
-                return FilterResults().apply { values=ordenesFiltered}
-            }
-
-            override fun publishResults(p0: CharSequence?, results: FilterResults?) {
-                ordenesFiltered=if (results?.values==null)
-                    ArrayList()
-                else
-                    results.values as MutableList<Orden>
-                notifyDataSetChanged()
-            }
-
-        }
-    }*/
    fun filter(textAux: String) {
-      val text = textAux
+      var text = textAux
+      text = text
+      if(text.length == 1){
+          ordenesFiltered.clear()
+          ordenesFiltered.addAll(ordenes)
+      }
       ordenes.clear()
       if (text.isEmpty()) {
+          Log.e("filter", "esta vacio ves")
           ordenes.addAll(ordenesFiltered)
-      } else {
+      } else{
+          Log.e("filter", "avr buscando")
           for (item in ordenesFiltered) {
-              if (item.orderId.toString().contains(text)) {
+              if (item.orderId.toString().lowercase(Locale.getDefault()).contains(text)) {
                   ordenes.add(item)
-                  Toast.makeText(context, "ENTRE AL IF PUTA ", Toast.LENGTH_SHORT).show()
               }
           }
       }
       notifyDataSetChanged()
   }
 
-    init {
-        ordenesFiltered.addAll(ordenes)
-    }
 
 
     fun DineINfilter() {
@@ -186,5 +160,4 @@ open class MainAdapter(val context: Context):RecyclerView.Adapter<MainAdapter.Ma
         }
         notifyDataSetChanged()
     }
-
 }
