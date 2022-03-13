@@ -20,6 +20,7 @@ class OrdenesActivity : AppCompatActivity(){
     private val TAG = "OrdenesActivity"
 
     private var ordenes:MutableList<Orden> = mutableListOf()
+    private var ordenesBackup:MutableList<Orden> = mutableListOf()
     private lateinit var binding: ActivityOrdenesBinding
     lateinit var viewModel: MainViewModel
     private val retrofitService=RetrofitService.getInstance()
@@ -32,7 +33,8 @@ class OrdenesActivity : AppCompatActivity(){
         setContentView(binding.root)
 
         ordenes = ArrayList()
-        adapter = MainAdapter(this, ordenes)
+        ordenesBackup = ArrayList()
+        adapter = MainAdapter(this, ordenes, ordenesBackup)
 
         binding.searchView.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(newText: String): Boolean {
@@ -62,6 +64,7 @@ class OrdenesActivity : AppCompatActivity(){
 
         viewModel.ordenesList.observe(this, Observer {
             ordenes.addAll(it)
+            ordenesBackup.addAll(it)
             Log.d(TAG, "ordersList: $it")
             ordenes.forEach {
                 Log.e("avr", it.orderId.toString())

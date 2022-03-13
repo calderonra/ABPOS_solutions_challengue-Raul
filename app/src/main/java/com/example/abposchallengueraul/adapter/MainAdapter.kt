@@ -16,7 +16,7 @@ import com.example.abposchallengueraul.databinding.OrdenesAdapterBinding
 import java.util.*
 import kotlin.collections.ArrayList
 
-open class MainAdapter(val context: Context, var ordenes: MutableList<Orden>):RecyclerView.Adapter<MainAdapter.MainViewHolder> (){
+open class MainAdapter(val context: Context, var ordenes: MutableList<Orden>, var ordenesBackup: MutableList<Orden>):RecyclerView.Adapter<MainAdapter.MainViewHolder> (){
 
     lateinit var sharedPreferences: SharedPreferences
     var ordenesFiltered = ArrayList<Orden>()
@@ -73,12 +73,12 @@ open class MainAdapter(val context: Context, var ordenes: MutableList<Orden>):Re
       text = text
       if(text.length == 1){
           ordenesFiltered.clear()
-          ordenesFiltered.addAll(ordenes)
+          ordenesFiltered.addAll(ordenesBackup)
       }
       ordenes.clear()
       if (text.isEmpty()) {
           Log.e("filter", "esta vacio ves")
-          ordenes.addAll(ordenesFiltered)
+          ordenes.addAll(ordenesBackup)
       } else{
           Log.e("filter", "avr buscando")
           for (item in ordenesFiltered) {
